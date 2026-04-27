@@ -3,6 +3,8 @@ import { findEdgeBookmarksPath, parseEdgeBookmarks } from "@/lib/bookmark-parser
 import { classifyBookmarks } from "@/lib/classifier";
 import { promises as fs } from "fs";
 
+export const runtime = "nodejs";
+
 /**
  * Import bookmarks from Edge bookmarks file or uploaded JSON bookmarks.
  * GET: Read local Edge bookmarks, parse and classify.
