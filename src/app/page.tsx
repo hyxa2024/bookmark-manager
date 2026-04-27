@@ -6,6 +6,7 @@ import { supabase } from "@/lib/supabase";
 import { Bookmark, Category } from "@/lib/types";
 import { getCategoryColorClass, getColorDotClass } from "@/lib/colors";
 import BookmarkCard from "@/components/BookmarkCard";
+import ImportBookmarks from "@/components/ImportBookmarks";
 import AddBookmark from "@/components/AddBookmark";
 
 const DEFAULT_CATEGORIES = [
@@ -254,6 +255,11 @@ export default function HomePage() {
         {/* 添加书签 */}
         <div className="mb-6">
           <AddBookmark categories={categories} onAdded={fetchBookmarks} />
+        </div>
+
+        {/* Edge 书签导入面板 */}
+        <div className="mb-6">
+          <ImportBookmarks categories={categories} onImported={fetchBookmarks} />
         </div>
 
         {/* 搜索 + 筛选 */}
