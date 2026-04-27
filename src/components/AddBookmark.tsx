@@ -2,18 +2,18 @@
 
 import { useState } from "react";
 import { supabase } from "@/lib/supabase";
+import { Category } from "@/lib/types";
 
 interface AddBookmarkProps {
+  categories: Category[];
   onAdded: () => void;
 }
 
-const CATEGORIES = ["技术", "设计", "工具", "阅读", "其他"];
-
-export default function AddBookmark({ onAdded }: AddBookmarkProps) {
+export default function AddBookmark({ categories, onAdded }: AddBookmarkProps) {
   const [isOpen, setIsOpen] = useState(false);
   const [title, setTitle] = useState("");
   const [url, setUrl] = useState("");
-  const [category, setCategory] = useState("技术");
+  const [category, setCategory] = useState(categories[0]?.name ?? "其他");
   const [description, setDescription] = useState("");
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
@@ -30,7 +30,7 @@ export default function AddBookmark({ onAdded }: AddBookmarkProps) {
   const resetForm = () => {
     setTitle("");
     setUrl("");
-    setCategory("技术");
+    setCategory(categories[0]?.name ?? "其他");
     setDescription("");
     setError("");
   };
@@ -138,18 +138,18 @@ export default function AddBookmark({ onAdded }: AddBookmarkProps) {
               分类
             </label>
             <div className="flex flex-wrap gap-2">
-              {CATEGORIES.map((cat) => (
+              {categories.map((cat) => (
                 <button
-                  key={cat}
+                  key={cat.id}
                   type="button"
-                  onClick={() => setCategory(cat)}
+                  onClick={() => setCategory(cat.name)}
                   className={`rounded-full px-3 py-1 text-xs font-medium transition-all ${
-                    category === cat
+                    category === cat.name
                       ? "bg-[var(--primary)] text-white"
                       : "bg-[var(--background)] text-[var(--muted)] hover:text-[var(--foreground)]"
                   }`}
                 >
-                  {cat}
+                  {cat.name}
                 </button>
               ))}
             </div>
